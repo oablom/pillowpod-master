@@ -13,10 +13,10 @@ interface ListingCardProps {
   data: SafeListing;
   reservation?: SafeReservation;
   onAction?: (id: string) => void;
-  onEdit?: () => void; // Add onEdit prop for the edit functionality
+  onEdit?: () => void;
   disabled?: boolean;
   actionLabel?: string;
-  editLabel?: string; // Optional label for the edit button
+  editLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
 }
@@ -25,10 +25,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   data,
   reservation,
   onAction,
-  onEdit, // Use the edit function prop
+  onEdit,
   disabled,
   actionLabel,
-  editLabel = "Edit", // Default edit label
+  editLabel = "Edit",
   actionId = "",
   currentUser,
 }) => {
@@ -49,7 +49,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const handleEdit = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
-      onEdit?.(); // Call onEdit if defined
+      onEdit?.();
     },
     [onEdit]
   );
@@ -88,8 +88,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
             />
           </div>
         </div>
-        <div className="font-semibold text-lg">
-          {location?.region}, {location?.label}
+        <div className="font-semibold text-lg text-gray-800">
+          {data.title}{" "}
+          {location ? `(${location.region}, ${location.label})` : ""}
+        </div>
+        <div className="text-sm text-neutral-500 mb-1 overflow-hidden text-ellipsis whitespace-nowrap group-hover:whitespace-normal group-hover:max-h-none max-h-[1.2em] transition-all">
+          {data.description.length > 20
+            ? `${data.description.slice(0, 20)}...`
+            : data.description}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
@@ -99,7 +105,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {!reservation && <div className="font-light">/ night</div>}
         </div>
 
-        {/* Delete Button */}
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
@@ -109,7 +114,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
         )}
 
-        {/* Edit Button */}
         {onEdit && (
           <Button
             disabled={disabled}

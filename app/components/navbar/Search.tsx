@@ -17,7 +17,6 @@ const Search = () => {
   const guestCount = params?.get("guestCount");
 
   const locationLabel = useMemo(() => {
-    console.log("location valuye", locationValue);
     if (locationValue) {
       return getByValue(locationValue as string)?.label;
     }
