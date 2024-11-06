@@ -124,7 +124,12 @@ const EditModal: React.FC<EditModalProps> = ({ id, onClose }) => {
     if (step !== STEPS.PRICE) return onNext();
     setIsLoading(true);
 
-    const updatedData = { ...data, price: parseInt(data.price, 10) };
+    const updatedData = {
+      ...data,
+      price: parseInt(data.price, 10),
+      locationValue: data.location?.value,
+    };
+    console.log(updatedData);
 
     axios
       .put(`/api/listings/${id}`, updatedData)
