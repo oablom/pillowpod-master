@@ -88,15 +88,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
             />
           </div>
         </div>
-        <div className="font-semibold text-lg text-gray-800">
+        <div className="font-semibold text-lg text-gray-800 dark:text-white">
           {data.title}{" "}
           {location ? `(${location.region}, ${location.label})` : ""}
         </div>
-        <div className="text-sm text-neutral-500 mb-1 max-h-[1.2em] overflow-hidden text-ellipsis whitespace-nowrap transition-all group-hover:max-h-full group-hover:overflow-visible group-hover:whitespace-normal">
+        <div className="text-sm text-neutral-500 dark:text-gray-400 mb-1 max-h-[1.2em] overflow-hidden text-ellipsis whitespace-nowrap transition-all group-hover:max-h-full group-hover:overflow-visible group-hover:whitespace-normal">
           {data.description}
         </div>
-
-        <div className="font-light text-neutral-500">
+        <div className="font-light text-neutral-500 dark:text-gray-400">
           {reservationDate || data.category}
         </div>
         <div className="flex flex-row items-center gap-1">

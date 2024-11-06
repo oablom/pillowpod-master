@@ -24,3 +24,7 @@ body,
   width: 100% !important;
   font-size: 16px !important;
 }
+
+body {
+  @apply text-gray-900 dark:text-gray-100;
+}

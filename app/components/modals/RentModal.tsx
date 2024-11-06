@@ -2,13 +2,12 @@
 
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
-import { useMemo, useState, useEffect, use } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
-import { title } from "process";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
@@ -17,8 +16,6 @@ import Input from "../inputs/Input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-
-// const Map = dynamic(() => import("../Map"), { ssr: false });
 
 enum STEPS {
   CATEGORY = 0,
@@ -77,25 +74,17 @@ const RentModal = () => {
     });
   };
 
-  const onBack = () => {
-    setStep((step) => step - 1);
-  };
-
-  const onNext = () => {
-    setStep((step) => step + 1);
-  };
+  const onBack = () => setStep((step) => step - 1);
+  const onNext = () => setStep((step) => step + 1);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    if (step !== STEPS.PRICE) {
-      return onNext();
-    }
-    setIsLoading(true);
+    if (step !== STEPS.PRICE) return onNext();
 
+    setIsLoading(true);
     axios
       .post("/api/listings", data)
       .then(() => {
         toast.success("Listing created successfully!");
-        console.log("Listing created successfully!");
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
@@ -103,31 +92,20 @@ const RentModal = () => {
       })
       .catch(() => {
         toast.error("An error occurred while creating the listing");
-        console.error("An error occurred while creating the listing");
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  useEffect(() => {
-    console.log("Current step:", step);
-  }, [step]);
-
-  const actionLabel = useMemo(() => {
-    if (step === STEPS.PRICE) {
-      return "Create";
-    } else {
-      return "Next";
-    }
-  }, [step]);
-
-  const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.CATEGORY) {
-      return undefined;
-    }
-    return "Back";
-  }, [step]);
+  const actionLabel = useMemo(
+    () => (step === STEPS.PRICE ? "Create" : "Next"),
+    [step]
+  );
+  const secondaryActionLabel = useMemo(
+    () => (step === STEPS.CATEGORY ? undefined : "Back"),
+    [step]
+  );
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
@@ -135,11 +113,11 @@ const RentModal = () => {
         title="Which of these best describes your place?"
         subtitle="Pick a category"
       />
-      <div className="gird grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
             <CategoryInput
-              onClick={(category) => setCustomValue("category", category)}
+              onClick={() => setCustomValue("category", item.label)}
               selected={category === item.label}
               label={item.label}
               icon={item.icon}
@@ -157,10 +135,12 @@ const RentModal = () => {
           title="Where is your place located?"
           subtitle="Help guests find you!"
         />
-        <CountrySelect
-          value={location}
-          onChange={(value) => setCustomValue(`location`, value)}
-        />
+        <div className="dark:bg-gray-700 dark:text-gray-100">
+          <CountrySelect
+            value={location}
+            onChange={(value) => setCustomValue(`location`, value)}
+          />
+        </div>
         <Map center={location?.latlng} />
       </div>
     );
@@ -171,26 +151,32 @@ const RentModal = () => {
       <div className="flex flex-col gap-8">
         <Heading
           title="Basic information about the accommodation"
-          subtitle="Set the target number of guests, rooms and bathrooms"
+          subtitle="Set the target number of guests, rooms, and bathrooms"
         />
-        <Counter
-          title="Number of guests"
-          subtitle="How many guests do you allow?"
-          value={guestCount}
-          onChange={(value) => setCustomValue("guestCount", value)}
-        />
-        <Counter
-          title="Rooms"
-          subtitle="How many rooms does the accommodation provide?"
-          value={roomCount}
-          onChange={(value) => setCustomValue("roomCount", value)}
-        />
-        <Counter
-          title="Bathrooms"
-          subtitle="How many bathrooms does the accommodation provide?"
-          value={bathroomCount}
-          onChange={(value) => setCustomValue("bathroomCount", value)}
-        />
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Counter
+            title="Number of guests"
+            subtitle="How many guests do you allow?"
+            value={guestCount}
+            onChange={(value) => setCustomValue("guestCount", value)}
+          />
+        </div>
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Counter
+            title="Rooms"
+            subtitle="How many rooms does the accommodation provide?"
+            value={roomCount}
+            onChange={(value) => setCustomValue("roomCount", value)}
+          />
+        </div>
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Counter
+            title="Bathrooms"
+            subtitle="How many bathrooms does the accommodation provide?"
+            value={bathroomCount}
+            onChange={(value) => setCustomValue("bathroomCount", value)}
+          />
+        </div>
       </div>
     );
   }
@@ -202,10 +188,12 @@ const RentModal = () => {
           title="Upload images of your place"
           subtitle="Show off your place!"
         />
-        <ImageUpload
-          value={imageSrc}
-          onChange={(value) => setCustomValue("imageSrc", value)}
-        />
+        <div className="dark:bg-gray-700 dark:text-gray-100">
+          <ImageUpload
+            value={imageSrc}
+            onChange={(value) => setCustomValue("imageSrc", value)}
+          />
+        </div>
       </div>
     );
   }
@@ -214,23 +202,26 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading title="Describe your place" subtitle="Short and sweet!" />
-        <Input
-          id="title"
-          label="Title"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
-        <hr />
-        <Input
-          id="description"
-          label="Description"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Input
+            id="title"
+            label="Title"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+        </div>
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Input
+            id="description"
+            label="Description"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+        </div>
       </div>
     );
   }
@@ -242,16 +233,18 @@ const RentModal = () => {
           title="Set the price for your place"
           subtitle="How much does it cost per night?"
         />
-        <Input
-          id="price"
-          label="Price"
-          formatPrice={true}
-          type="number"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
+        <div className="dark:bg-gray-700 dark:text-white">
+          <Input
+            id="price"
+            label="Price"
+            formatPrice={true}
+            type="number"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+        </div>
       </div>
     );
   }
@@ -266,6 +259,7 @@ const RentModal = () => {
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       body={bodyContent}
+      // className="dark:bg-gray-800 dark:text-gray-100"
     />
   );
 };
