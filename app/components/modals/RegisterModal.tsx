@@ -60,8 +60,9 @@ const RegisterModal = () => {
     loginModal.onOpen();
   }, [registerModal, loginModal]);
 
+  // RegisterModal.tsx
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 dark:bg-gray-800 dark:text-gray-100 p-4 rounded">
       <Heading title="Welcome to PillowPod" subtitle="A restful place" center />
       <Input
         id="email"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import DarkModeToggle from "./components/DarkModeToggle";
 import localFont from "next/font/local";
 import "./globals.css";
 // import Modal from "./components/modals/Modal";
@@ -32,25 +33,26 @@ export const metadata: Metadata = {
   description: "An enhanced AirBnB experience",
 };
 
+import { ReactNode } from "react";
+
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
   const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
         <ClientOnly>
-          {/* <Modal isOpen={true} actionLabel="Submit" /> */}
-          {/* <ToasterProvider /> */}
+          <DarkModeToggle />
           <ToasterProvider />
           <SearchModal />
           <RegisterModal />
           <RentModal />
           <LoginModal />
-          <Navbar currentUser={currentUser}></Navbar>
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         <div className="pb-20 pt-28">{children}</div>
       </body>
