@@ -4,7 +4,6 @@ import getCurrentUser from "../actions/getCurrentUser";
 import getListings from "../actions/getListings";
 
 import PropertiesClient from "./PropertiesClient";
-
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
 
@@ -19,7 +18,10 @@ const PropertiesPage = async () => {
     );
   }
 
-  const listings = await getListings({ userId: currentUser.id });
+  const listings = await getListings({
+    userId: currentUser.id,
+    isAdmin: currentUser.isAdmin,
+  });
 
   if (listings.length === 0) {
     return (
@@ -34,7 +36,7 @@ const PropertiesPage = async () => {
 
   return (
     <ClientOnly>
-      <PropertiesClient listings={listings} currentUser={currentUser} />{" "}
+      <PropertiesClient listings={listings} currentUser={currentUser} />
     </ClientOnly>
   );
 };

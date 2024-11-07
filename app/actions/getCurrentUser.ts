@@ -22,12 +22,16 @@ export default async function getCurrentUser() {
       },
     });
 
+    console.log("Admin status i getCurrentUser:", currentUser?.isAdmin);
+    console.log("Current user:", currentUser);
+
     if (!currentUser) {
       return null;
     }
 
     return {
       ...currentUser,
+      isAdmin: currentUser.isAdmin,
       createdAt: currentUser.createdAt.toISOString(),
       updatedAt: currentUser.updatedAt.toISOString(),
       emailVerified: currentUser.emailVerified?.toISOString() || null,

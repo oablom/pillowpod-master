@@ -8,6 +8,7 @@ import Search from "./Search";
 import UserMenu from "./UserMenu";
 import React from "react";
 import Categories from "./Categories";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -19,6 +20,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     <nav className="fixed w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 z-10 shadow-sm top-0">
       <div className="py-4 border-b-[1px] dark:border-gray-700">
         <Container>
+          <div className="z-100 absolute top-[50%]">
+            {currentUser?.isAdmin && "Admin"}
+          </div>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <Logo />
             <Search />

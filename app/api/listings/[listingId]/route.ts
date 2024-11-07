@@ -5,11 +5,15 @@ import prisma from "@/app/libs/prismadb";
 interface IParams {
   listingId?: string;
 }
-
 export async function GET(request: Request, { params }: { params: IParams }) {
   const { listingId } = params;
 
   if (!listingId || typeof listingId !== "string") {
+    return NextResponse.error();
+  }
+
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
     return NextResponse.error();
   }
 
@@ -19,6 +23,10 @@ export async function GET(request: Request, { params }: { params: IParams }) {
     });
 
     if (!listing) {
+      return NextResponse.error();
+    }
+
+    if (listing.userId !== currentUser.id && !currentUser.isAdmin) {
       return NextResponse.error();
     }
 
@@ -60,11 +68,13 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
   } = body;
 
   try {
+    const whereCondition = currentUser.isAdmin
+      ? { id: listingId }
+      : { id: listingId, userId: currentUser.id };
+
     const listing = await prisma.listing.update({
-      where: {
-        id: listingId,
-        userId: currentUser.id,
-      },
+      where: whereCondition,
+
       data: {
         title,
         description,
@@ -104,12 +114,28 @@ export async function DELETE(
     throw new Error("Invalid listingId");
   }
 
-  const listing = await prisma.listing.deleteMany({
-    where: {
-      id: listingId,
-      userId: currentUser.id,
-    },
-  });
+  try {
+    const whereCondition = currentUser.isAdmin
+      ? { id: listingId }
+      : { id: listingId, userId: currentUser.id };
 
-  return NextResponse.json(listing);
+    const listing = await prisma.listing.deleteMany({
+      where: whereCondition,
+    });
+
+    if (!listing.count) {
+      return NextResponse.json(
+        { error: "No permission to delete this listing" },
+        { status: 403 }
+      );
+    }
+
+    return NextResponse.json(listing);
+  } catch (error) {
+    console.error("Failed to delete listing:", error);
+    return NextResponse.json(
+      { error: "Server error" },
+      { status: 500, statusText: "Server error" }
+    );
+  }
 }

@@ -2,7 +2,7 @@
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { useCallback, useState } from "react";
-import { FieldValues, set, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import useRegisterModal from "../../hooks/useRegisterModal";
@@ -28,6 +28,8 @@ const RegisterModal = () => {
       name: "",
       email: "",
       password: "",
+      phoneNumber: "", // Nytt fält för telefonnummer
+      isAdmin: false, // Nytt fält för admin-status
     },
   });
 
@@ -38,14 +40,12 @@ const RegisterModal = () => {
       .post("/api/register", data)
       .then(() => {
         registerModal.onClose();
-        // loginModal.onOpen();
-        toast.success("Registration successful!"); // Bekräftelsemeddelande
+        toast.success("Registration successful!");
         signIn("credentials", { email: data.email, password: data.password });
-        // setIsLoading(false);
       })
       .catch((error) => {
         toast.error(
-          error.response.data.message
+          error.response?.data?.message
             ? error.response.data.message
             : "An error occurred"
         );
@@ -60,7 +60,6 @@ const RegisterModal = () => {
     loginModal.onOpen();
   }, [registerModal, loginModal]);
 
-  // RegisterModal.tsx
   const bodyContent = (
     <div className="flex flex-col gap-4 dark:bg-gray-800 dark:text-gray-100 p-4 rounded">
       <Heading title="Welcome to PillowPod" subtitle="A restful place" center />
@@ -83,11 +82,29 @@ const RegisterModal = () => {
       <Input
         id="password"
         label="Password"
+        type="password"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
+      <Input
+        id="phoneNumber"
+        label="Phone Number"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <div className="flex items-center gap-2">
+        <input
+          id="isAdmin"
+          type="checkbox"
+          disabled={isLoading}
+          {...register("isAdmin")}
+        />
+        <label htmlFor="isAdmin">Admin Account</label>
+      </div>
     </div>
   );
 
@@ -96,7 +113,7 @@ const RegisterModal = () => {
       <hr />
       <Button
         outline
-        label="Continue with google"
+        label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
@@ -107,7 +124,7 @@ const RegisterModal = () => {
         onClick={() => signIn("github")}
       />
       <div className="flex justify-center flex-row items-center gap-2">
-        <div className="">Already have an account?</div>
+        <div>Already have an account?</div>
         <div
           onClick={toggle}
           className="text-neutral-800 cursor-pointer hover:underline"
@@ -117,6 +134,7 @@ const RegisterModal = () => {
       </div>
     </div>
   );
+
   return (
     <Modal
       disabled={isLoading}
@@ -127,7 +145,7 @@ const RegisterModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
-    ></Modal>
+    />
   );
 };
 

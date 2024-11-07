@@ -1,7 +1,8 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
-  userId?: string;
+  userId?: string; // kan användas för att filtrera listningar för vanliga användare
+  isAdmin?: boolean; // Ny parameter för att kontrollera om användaren är admin
   guestCount?: number;
   roomCount?: number;
   bathroomCount?: number;
@@ -15,6 +16,7 @@ export default async function getListings(params: IListingsParams) {
   try {
     const {
       userId,
+      isAdmin, // Hämta isAdmin här
       roomCount,
       guestCount,
       bathroomCount,
@@ -23,9 +25,11 @@ export default async function getListings(params: IListingsParams) {
       locationValue,
       category,
     } = params;
+
     let query: any = {};
 
-    if (userId) {
+    // Om användaren är admin, sätt ingen filtrering på userId
+    if (!isAdmin && userId) {
       query.userId = userId;
     }
 
