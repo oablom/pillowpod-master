@@ -29,8 +29,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AirBnB",
-  description: "An enhanced AirBnB experience",
+  title: "PillowPod",
+  description: "A platform for renting and listing properties",
 };
 
 import { ReactNode } from "react";
