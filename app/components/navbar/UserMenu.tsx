@@ -44,7 +44,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 dark:hover:bg-gray-700 transition cursor-pointer"
         >
-          AirBnB your pod
+          Rent out your pod!
         </div>
         <div
           onClick={toggleOpen}
@@ -77,7 +77,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   onClick={() => router.push(`properties`)}
                   label="Properties"
                 />
-                <MenuItem onClick={rentModal.onOpen} label="Airbnb My Home" />
+                <MenuItem
+                  onClick={rentModal.onOpen}
+                  label="Rent out your pod!"
+                />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>
             ) : (
