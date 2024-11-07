@@ -26,7 +26,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) return null; // Returnera null om vi inte är på klienten
+  if (!isClient) return null;
 
   return (
     <MapContainer

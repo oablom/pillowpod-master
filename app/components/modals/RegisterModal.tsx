@@ -28,8 +28,8 @@ const RegisterModal = () => {
       name: "",
       email: "",
       password: "",
-      phoneNumber: "", // Nytt fält för telefonnummer
-      isAdmin: false, // Nytt fält för admin-status
+      phoneNumber: "",
+      isAdmin: false,
     },
   });
 
