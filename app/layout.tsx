@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import DarkModeToggle from "./components/DarkModeToggle";
 import localFont from "next/font/local";
 import "./globals.css";
-// import Modal from "./components/modals/Modal";
 import { Nunito } from "next/font/google";
 import Navbar from "./components/navbar/Navbar";
 import RegisterModal from "./components/modals/RegisterModal";
@@ -11,8 +10,10 @@ import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
-// import { Toaster } from "react-hot-toast";
 import ClientOnly from "./components/ClientOnly";
+import { ReactNode } from "react";
+import SessionProviderWrapper from "./components/SessionProviderWrapper"; // Importera SessionProviderWrapper
+
 const font = Nunito({
   subsets: ["latin"],
 });
@@ -33,8 +34,6 @@ export const metadata: Metadata = {
   description: "A platform for renting and listing properties",
 };
 
-import { ReactNode } from "react";
-
 export default async function RootLayout({
   children,
 }: {
@@ -45,16 +44,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-        <ClientOnly>
-          <DarkModeToggle />
-          <ToasterProvider />
-          <SearchModal />
-          <RegisterModal />
-          <RentModal />
-          <LoginModal />
-          <Navbar currentUser={currentUser} />
-        </ClientOnly>
-        <div className="pb-20 pt-28">{children}</div>
+        <SessionProviderWrapper>
+          <ClientOnly>
+            <DarkModeToggle />
+            <ToasterProvider />
+            <SearchModal />
+            <RegisterModal />
+            <RentModal />
+            <LoginModal />
+            <Navbar currentUser={currentUser} />
+          </ClientOnly>
+          <div className="pb-20 pt-28">{children}</div>
+        </SessionProviderWrapper>
       </body>
     </html>
   );
