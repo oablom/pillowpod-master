@@ -1,0 +1,40 @@
+.dark .rdrCalendarWrapper {
+  background-color: #656565;
+  color: #ffffff;
+}
+
+.dark .rdrMonthAndYearPickers select,
+.dark .rdrMonthAndYearWrapper .rdrMonthPicker,
+.dark .rdrMonthAndYearWrapper .rdrYearPicker {
+  color: #ffffff;
+  background-color: #7e7e7e;
+}
+
+.dark .rdrDayNumber span {
+  color: #e0e0e0;
+}
+
+.dark .rdrWeekDays span {
+  color: #e0e0e0;
+}
+
+.dark .rdrDayDisabled {
+  background-color: #885b5b !important;
+  /* color: #ffffff !important; */
+}
+.dark .rdrDayDisabled .rdrDayNumber span {
+  color: rgba(243, 243, 243, 0.727) !important;
+}
+.dark .rdrDaySelected,
+.dark .rdrDayInRange {
+  background-color: #444444 !important;
+  color: #ffffff;
+}
+
+.dark .rdrDay:hover .rdrDayNumber span {
+  color: #ffcc00;
+}
+
+.dark .rdrDay:not(.rdrDayDisabled) .rdrDayNumber span {
+  color: #ffffff;
+}

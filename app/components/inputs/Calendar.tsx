@@ -3,6 +3,7 @@
 import { DateRange, Range, RangeKeyDict } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import "./CalendarDarkMode.css";
 
 interface CalendarProps {
   value: Range;
@@ -17,7 +18,7 @@ const Calendar: React.FC<CalendarProps> = ({
 }) => {
   return (
     <DateRange
-      rangeColors={["#262626"]}
+      rangeColors={["#444444"]}
       ranges={[value]}
       date={new Date()}
       onChange={onChange}

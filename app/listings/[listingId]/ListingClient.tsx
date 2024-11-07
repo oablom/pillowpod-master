@@ -70,9 +70,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
         listingId: listing?.id,
       })
       .then((response) => {
-        // setIsLoading(false);
         toast.success("Reservation created!");
-        // router.push(`/reservations/${response.data.id}`);
+
         setDateRange(initialDateRange);
         router.push(`/trips`);
       })
@@ -114,7 +113,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             id={listing.id}
             currentUser={currentUser}
           />
-          <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6 dark:text-white">
             <ListingInfo
               user={listing.user}
               category={category}
