@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           <div className="z-100 absolute top-[50%]">
             {currentUser?.isAdmin && "Admin"}
           </div>
-          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
+          <div className="flex flex-row items-center justify-between gap-3 md:gap-0 ">
             <Logo />
             <Search />
             <UserMenu currentUser={currentUser} />

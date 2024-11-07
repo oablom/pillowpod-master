@@ -12,7 +12,7 @@ const Logo = () => {
       onClick={() => router.push("/")}
       src="/images/Logo.webp"
       alt="Logo"
-      className=" md-block cursor-pointer"
+      className=" md-block cursor-pointer rounded-[30%]"
       width={100}
       height={100}
     />
