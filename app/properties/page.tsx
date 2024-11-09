@@ -23,12 +23,12 @@ const PropertiesPage = async () => {
     isAdmin: currentUser.isAdmin,
   });
 
-  if (listings.length === 0) {
+  if (!listings || listings.length === 0) {
     return (
       <ClientOnly>
         <EmptyState
-          title="No properties found"
-          subtitle="You don't have any properties listed."
+          title="No favorites found"
+          subtitle="Looks like you have no favorite listings."
         />
       </ClientOnly>
     );

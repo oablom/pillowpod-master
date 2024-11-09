@@ -13,10 +13,13 @@ const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
-  if (listings.length === 0) {
+  if (!listings || listings.length === 0) {
     return (
       <ClientOnly>
-        <EmptyState showReset />
+        <EmptyState
+          title="No favorites found"
+          subtitle="Looks like you have no favorite listings."
+        />
       </ClientOnly>
     );
   }
