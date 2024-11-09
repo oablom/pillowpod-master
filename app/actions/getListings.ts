@@ -26,7 +26,7 @@ export default async function getListings(params: IListingsParams) {
       category,
     } = params;
 
-    let query: any = {};
+    const query: Record<string, unknown> = {};
 
     if (!isAdmin && userId) {
       query.userId = userId;
@@ -91,7 +91,10 @@ export default async function getListings(params: IListingsParams) {
     }));
 
     return safeListings;
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("An unknown error occurred");
   }
 }

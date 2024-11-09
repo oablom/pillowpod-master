@@ -12,10 +12,11 @@ import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
+import { CountrySelectValue } from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
-import { SafeListing } from "@/app/types";
+// import { SafeListing } from "@/app/types"; //removed for deployment
 import { useRouter } from "next/navigation";
 
 enum STEPS {
@@ -31,12 +32,12 @@ interface EditModalProps {
   id: string;
   onClose: () => void;
 }
-
-const EditModal: React.FC<EditModalProps> = ({ id, onClose }) => {
+//onClose removed for deployment
+const EditModal: React.FC<EditModalProps> = ({ id }) => {
   const [step, setStep] = useState(STEPS.CATEGORY);
   const editModal = useEditModal();
   const [isLoading, setIsLoading] = useState(false);
-  const [listing, setListing] = useState<SafeListing | null>(null);
+  // const [listing, setListing] = useState<SafeListing | null>(null); //removed for deployment
   const router = useRouter();
 
   const {
@@ -60,19 +61,20 @@ const EditModal: React.FC<EditModalProps> = ({ id, onClose }) => {
     },
   });
 
-  useEffect(() => {
-    if (id) {
-      const fetchListing = async () => {
-        try {
-          const response = await axios.get(`/api/listings/${id}`);
-          setListing(response.data);
-        } catch (error) {
-          console.error("Error fetching listing:", error);
-        }
-      };
-      fetchListing();
-    }
-  }, [id]);
+  //removed for deployment
+  // useEffect(() => {
+  //   if (id) {
+  //     const fetchListing = async () => {
+  //       try {
+  //         const response = await axios.get(`/api/listings/${id}`);
+  //         setListing(response.data);
+  //       } catch (error) {
+  //         console.error("Error fetching listing:", error);
+  //       }
+  //     };
+  //     fetchListing();
+  //   }
+  // }, [id]);
 
   const category = watch("category");
   const location = watch("location");
@@ -80,7 +82,7 @@ const EditModal: React.FC<EditModalProps> = ({ id, onClose }) => {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
-  const price = watch("price");
+  // const price = watch("price"); //never used
 
   const Map = useMemo(
     () => dynamic(() => import("../Map"), { ssr: false }),
@@ -109,7 +111,10 @@ const EditModal: React.FC<EditModalProps> = ({ id, onClose }) => {
     }
   }, [id, setValue]);
 
-  const setCustomValue = (id: string, value: any) => {
+  const setCustomValue = (
+    id: string,
+    value: string | number | boolean | CountrySelectValue | null | undefined
+  ) => {
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,

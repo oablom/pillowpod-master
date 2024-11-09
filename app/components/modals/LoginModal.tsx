@@ -1,8 +1,8 @@
 "use client";
 // import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
-import { use, useCallback, useState } from "react";
-import { FieldValues, set, SubmitHandler, useForm } from "react-hook-form";
+import { useCallback, useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import Modal from "./Modal";
 import Heading from "../Heading";

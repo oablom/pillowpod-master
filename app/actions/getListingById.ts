@@ -1,5 +1,4 @@
 import prisma from "@/app/libs/prismadb";
-import { ca } from "date-fns/locale";
 
 interface IParams {
   listingId?: string;
@@ -31,7 +30,9 @@ export async function getListingById(params: IParams) {
         emailVerified: listing.user.emailVerified?.toISOString() || null,
       },
     };
-  } catch (error: any) {
-    console.error(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }

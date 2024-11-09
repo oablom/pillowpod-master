@@ -2,16 +2,21 @@
 
 import { useEffect, useState } from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
+// Import images directly for deployment error with require
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
 if (typeof window !== "undefined") {
-  //@ts-ignore
+  //@ts-expect-error - Fix for leaflet icon error
   delete L.Icon.Default.prototype._getIconUrl;
   L.Icon.Default.mergeOptions({
-    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
-    iconUrl: require("leaflet/dist/images/marker-icon.png").default,
-    shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
+    iconRetinaUrl: markerIcon2x,
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
   });
 }
 
@@ -30,7 +35,6 @@ const Map: React.FC<MapProps> = ({ center }) => {
 
   return (
     <MapContainer
-      // key={center ? center.toString() : "default"}
       center={(center as L.LatLngExpression) || [51, -0.09]}
       zoom={center ? 4 : 2}
       scrollWheelZoom={false}

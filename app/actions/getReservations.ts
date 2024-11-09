@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 import { console } from "inspector";
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
 
 interface IParams {
   listingId?: string;
@@ -15,7 +15,11 @@ export default async function getReservations(params: IParams) {
     console.log("Listing ID i getReservations:", listingId);
     console.log("Listing ID:", listingId, "Type:", typeof listingId);
 
-    const query: any = {};
+    const query: {
+      listingId?: string;
+      userId?: string;
+      listing?: { userId: string };
+    } = {};
 
     if (listingId) {
       query.listingId = listingId;
@@ -51,8 +55,10 @@ export default async function getReservations(params: IParams) {
     }));
 
     return safeReservations;
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }
 
