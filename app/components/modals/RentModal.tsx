@@ -2,13 +2,14 @@
 
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
+import { CountrySelectValue } from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
@@ -59,14 +60,17 @@ const RentModal = () => {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
-  const price = watch("price");
+  // const price = watch("price");
 
   const Map = useMemo(
     () => dynamic(() => import("../Map"), { ssr: false }),
     [location]
   );
 
-  const setCustomValue = (id: string, value: any) => {
+  const setCustomValue = (
+    id: string,
+    value: string | number | boolean | CountrySelectValue | null | undefined
+  ) => {
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,

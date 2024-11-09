@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import DarkModeToggle from "./components/DarkModeToggle";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
+// import { Nunito } from "next/font/google";
 import "./globals.css";
-import { Nunito } from "next/font/google";
+
 import Navbar from "./components/navbar/Navbar";
 import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./components/providers/ToasterProvider";
@@ -14,20 +15,20 @@ import ClientOnly from "./components/ClientOnly";
 import { ReactNode } from "react";
 import SessionProviderWrapper from "./components/SessionProviderWrapper"; // Importera SessionProviderWrapper
 
-const font = Nunito({
-  subsets: ["latin"],
-});
+// const font = Nunito({
+//   subsets: ["latin"],
+// });
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "PillowPod",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "leaflet";
+// import { Icon } from "leaflet";
 import { SafeUser } from "@/app/types";
 import { IconType } from "react-icons";
 import useCountries from "@/app/hooks/useCountries";

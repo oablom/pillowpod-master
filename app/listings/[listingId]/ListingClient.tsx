@@ -69,7 +69,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         endDate: dateRange.endDate,
         listingId: listing?.id,
       })
-      .then((response) => {
+      .then(() => {
         toast.success("Reservation created!");
 
         setDateRange(initialDateRange);

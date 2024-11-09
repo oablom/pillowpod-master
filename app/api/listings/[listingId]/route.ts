@@ -31,7 +31,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
     }
 
     return NextResponse.json(listing);
-  } catch (error) {
+  } catch {
     return NextResponse.error();
   }
 }

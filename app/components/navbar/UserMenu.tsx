@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import { useCallback } from "react";
-import { DiVim } from "react-icons/di";
+// import { DiVim } from "react-icons/di";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
