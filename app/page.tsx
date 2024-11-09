@@ -17,8 +17,8 @@ const Home = async ({ searchParams }: HomeProps) => {
     return (
       <ClientOnly>
         <EmptyState
-          title="No favorites found"
-          subtitle="Looks like you have no favorite listings."
+          title="No listings found"
+          subtitle="Looks like there are no listings available."
         />
       </ClientOnly>
     );
