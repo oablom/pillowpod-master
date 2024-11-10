@@ -1,4 +1,4 @@
-const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 import { getListingById } from "@/app/actions/getListingById";
 import EmptyState from "@/app/components/EmptyState";
