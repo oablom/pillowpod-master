@@ -1,3 +1,5 @@
+const dynamic = "force-dynamic";
+
 import { getListingById } from "@/app/actions/getListingById";
 import EmptyState from "@/app/components/EmptyState";
 import ClientOnly from "@/app/components/ClientOnly";
