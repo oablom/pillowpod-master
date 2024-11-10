@@ -29,7 +29,6 @@ const Home = async ({ searchParams }: HomeProps) => {
   return (
     <ClientOnly>
       <Container>
-        test test
         <div
           className="
         pt-24
