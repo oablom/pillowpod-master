@@ -1,3 +1,5 @@
+const dynamic = "force-dynamic";
+
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import getListings, { IListingsParams } from "@/app/actions/getListings";
