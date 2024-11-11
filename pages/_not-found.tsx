@@ -4,7 +4,7 @@
 export const dynamic = "force-dynamic";
 
 import { useEffect } from "react";
-import EmptyState from "./components/EmptyState";
+import EmptyState from "../app/components/EmptyState";
 
 const NotFoundPage = () => {
   useEffect(() => {
