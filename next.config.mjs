@@ -5,6 +5,7 @@ const nextConfig = {
   },
   output: "standalone",
   reactStrictMode: true,
+  generateStaticParams: false,
 };
 
 export default nextConfig;
