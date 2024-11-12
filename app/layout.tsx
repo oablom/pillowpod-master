@@ -1,3 +1,7 @@
+"use client";
+
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import DarkModeToggle from "./components/DarkModeToggle";
 // import localFont from "next/font/local";
