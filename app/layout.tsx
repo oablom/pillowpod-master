@@ -1,4 +1,3 @@
-// RootLayout.tsx
 import { ReactNode } from "react";
 import DarkModeToggle from "./components/DarkModeToggle";
 import Navbar from "./components/navbar/Navbar";
