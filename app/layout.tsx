@@ -1,13 +1,6 @@
-"use client";
-
-export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
+import { ReactNode } from "react";
+import { Metadata } from "next"; // Importera metadata här
 import DarkModeToggle from "./components/DarkModeToggle";
-// import localFont from "next/font/local";
-// import { Nunito } from "next/font/google";
-import "./globals.css";
-
 import Navbar from "./components/navbar/Navbar";
 import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./components/providers/ToasterProvider";
@@ -16,23 +9,10 @@ import getCurrentUser from "./actions/getCurrentUser";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
 import ClientOnly from "./components/ClientOnly";
-import { ReactNode } from "react";
-import SessionProviderWrapper from "./components/SessionProviderWrapper"; // Importera SessionProviderWrapper
+import SessionProviderWrapper from "./components/SessionProviderWrapper";
 
-// const font = Nunito({
-//   subsets: ["latin"],
-// });
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+// Markera denna layout som dynamisk för att kunna hantera serveranrop som getCurrentUser
+export const dynamic = "force-dynamic"; // Lägg till detta för dynamisk rendering!
 
 export const metadata: Metadata = {
   title: "PillowPod",
@@ -44,7 +24,7 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser(); // Serveranrop, utan use client
 
   return (
     <html lang="en">
