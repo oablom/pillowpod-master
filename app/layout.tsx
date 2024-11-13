@@ -13,7 +13,7 @@ import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
 import ClientOnly from "./components/ClientOnly";
 import { ReactNode } from "react";
-import SessionProviderWrapper from "./components/SessionProviderWrapper"; // Importera SessionProviderWrapper
+import SessionProviderWrapper from "./components/SessionProviderWrapper";
 
 // const font = Nunito({
 //   subsets: ["latin"],
